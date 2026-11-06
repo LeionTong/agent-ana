@@ -1,0 +1,43 @@
+{
+  "name": "risk-app-ops-analysis",
+  "version": "2.0.0",
+  "description": "风险应用运营数据分析工具 - 完整复现\"原始数据获取→数据处理→分析报告\"业务能力",
+  "main": "risk-app-operation-analyzer.js",
+  "scripts": {
+    "analyzer": "node risk-app-operation-analyzer.js",
+    "data-fetcher": "node risk-app-data-fetcher.js",
+    "format-converter": "node risk-app-format-converter.js",
+    "report-generator": "node risk-app-report-generator.js",
+    "workflow": "node risk-app-workflow-orchestrator.js",
+    "analyzer-help": "node risk-app-operation-analyzer.js --help",
+    "install-deps": "npm install"
+  },
+  "keywords": [
+    "risk-app",
+    "elasticsearch",
+    "log-analysis", 
+    "data-analysis",
+    "security-monitoring",
+    "automation",
+    "reporting"
+  ],
+  "author": "Leion",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LeionTong/risk-app-ops-analysis.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LeionTong/risk-app-ops-analysis/issues"
+  },
+  "homepage": "https://github.com/LeionTong/risk-app-ops-analysis#readme",
+  "dependencies": {
+    "chalk": "^4.1.2"
+  },
+  "devDependencies": {},
+  "os": ["linux", "win32", "darwin"],
+  "cpu": ["x64", "x86", "arm64"]
+}

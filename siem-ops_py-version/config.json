@@ -1,0 +1,64 @@
+{
+  "elasticsearch": {
+    "host": "203.0.113.10",
+    "port": "9200",
+    "username": "elastic",
+    "password": "changeme",
+    "api_endpoint": "/_sql?format=json"
+  },
+  "output": {
+    "directory": "log_files"
+  },
+  "queries": {
+    "0": {
+      "name": "TEST",
+      "description": "过滤来自外部IP的攻击",
+      "sql": "SELECT field_values.attack_sip,field_values.dip,field_values.sip,field_values.sip_addr,field_values.vuln_type,id FROM logfmt_746_{date_index} WHERE field_values.sip_addr != '局域网' AND field_values.sip_addr != '未知' ORDER BY field_values.access_time DESC"
+    },
+    "1": {
+      "name": "全量查询",
+      "description": "获取所有记录",
+      "sql": "SELECT * FROM logfmt_746_{date_index} ORDER BY field_values.access_time DESC"
+    },
+    "2": {
+      "name": "外部IP攻击",
+      "description": "过滤来自外部IP的攻击",
+      "sql": "SELECT * FROM logfmt_746_{date_index} WHERE field_values.sip_addr != '局域网' AND field_values.sip_addr != '未知' ORDER BY field_values.access_time DESC LIMIT 100"
+    },
+    "3": {
+      "name": "攻击成功+失陷",
+      "description": "过滤出攻击成功和失陷的记录",
+      "sql": "SELECT * FROM logfmt_746_{date_index} WHERE field_values.sip_addr != '局域网' AND (field_values.host_state = '攻击成功' OR field_values.host_state = '失陷') ORDER BY field_values.access_time DESC LIMIT 100"
+    },
+    "4": {
+      "name": "SQL注入攻击",
+      "description": "过滤SQL注入类型的攻击",
+      "sql": "SELECT * FROM logfmt_746_{date_index} WHERE field_values.sip_addr != '局域网' AND field_values.vuln_type = 'SQL注入' ORDER BY field_values.access_time DESC LIMIT 100"
+    },
+    "5": {
+      "name": "Web组件信息泄露",
+      "description": "过滤信息泄露类型的攻击",
+      "sql": "SELECT * FROM logfmt_746_{date_index} WHERE field_values.sip_addr != '局域网' AND field_values.vuln_type = '信息泄露' ORDER BY field_values.access_time DESC LIMIT 100"
+    },
+    "6": {
+      "name": "扫描工具",
+      "description": "过滤扫描工具相关的攻击",
+      "sql": "SELECT * FROM logfmt_746_{date_index} WHERE field_values.sip_addr != '局域网' AND field_values.attack_type LIKE '%扫描%' ORDER BY field_values.access_time DESC LIMIT 100"
+    },
+    "7": {
+      "name": "Web弱口令",
+      "description": "过滤弱口令相关的攻击",
+      "sql": "SELECT * FROM logfmt_746_{date_index} WHERE field_values.sip_addr != '局域网' AND field_values.vuln_type LIKE '%弱口令%' ORDER BY field_values.access_time DESC LIMIT 100"
+    },
+    "8": {
+      "name": "高危攻击",
+      "description": "过滤高危级别的攻击",
+      "sql": "SELECT * FROM logfmt_746_{date_index} WHERE field_values.sip_addr != '局域网' AND field_values.hazard_level = '高' ORDER BY field_values.access_time DESC LIMIT 100"
+    },
+    "9": {
+      "name": "Web攻击",
+      "description": "过滤Web类型的攻击",
+      "sql": "SELECT * FROM logfmt_746_{date_index} WHERE field_values.sip_addr != '局域网' AND field_values.is_web_attack = '1' ORDER BY field_values.access_time DESC LIMIT 100"
+    }
+  }
+} 
